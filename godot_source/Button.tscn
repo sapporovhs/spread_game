@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Button.gd" type="Script" id=1]
+[ext_resource path="res://assets/menu.png" type="Texture" id=2]
+
+[node name="Button" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -310.0
+margin_bottom = -590.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="Button" parent="."]
+margin_right = 29.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 2 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,557 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://UI.gd" type="Script" id=1]
+[ext_resource path="res://assets/menu.png" type="Texture" id=2]
+[ext_resource path="res://Clock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Button.gd" type="Script" id=4]
+[ext_resource path="res://assets/bloat.shader" type="Shader" id=5]
+[ext_resource path="res://assets/medical.png" type="Texture" id=6]
+[ext_resource path="res://assets/telecom.png" type="Texture" id=7]
+[ext_resource path="res://assets/oil.png" type="Texture" id=8]
+[ext_resource path="res://assets/quarantined.png" type="Texture" id=9]
+[ext_resource path="res://assets/testing.png" type="Texture" id=10]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.1, 0.9, 1 )
+colors = PoolColorArray( 0, 0.00784314, 0.470588, 1, 0.0823529, 0.0823529, 0.0823529, 1, 0.152941, 0.152941, 0.152941, 1, 0, 0.00784314, 0.470588, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 100
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.1, 0.9, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.223529, 0.223529, 0.223529, 1, 0.223529, 0.223529, 0.223529, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 100
+
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 1, 1, 0.00392157, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+width = 100
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+void fragment(){
+	if(texture(TEXTURE,UV).a<0.5+0.1*sin(TIME*5.0)){
+		COLOR = texture(TEXTURE,UV).aaaa;		
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = ExtResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 5 )
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Clock" parent="." instance=ExtResource( 3 )]
+position = Vector2( 10, 10 )
+scale = Vector2( 1.5, 1.5 )
+
+[node name="PullDown" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 296.0
+margin_top = 2.0
+margin_right = -14.0
+margin_bottom = -588.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuButton" type="Button" parent="PullDown"]
+margin_right = 29.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 2 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsTerminal" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="StatsTerminal"]
+margin_top = 540.0
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="StatsTerminal"]
+margin_top = 540.0
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 4 )
+draw_center = false
+patch_margin_left = 20
+patch_margin_top = 10
+patch_margin_right = 20
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccumStatsLabel" type="Label" parent="."]
+margin_left = 25.0
+margin_top = 555.0
+margin_right = 86.0
+margin_bottom = 597.0
+rect_scale = Vector2( 1.8, 1.8 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "World:
+$ - 100 %
+* - 100 %"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SingleCityStatsLabel" type="Label" parent="."]
+margin_left = 175.0
+margin_top = 555.0
+margin_right = 267.0
+margin_bottom = 597.0
+rect_scale = Vector2( 1.8, 1.8 )
+mouse_filter = 1
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "City Name:
+$ - 100
+* - 100 "
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameMenu" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="GameMenu"]
+margin_top = 60.0
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="GameMenu"]
+margin_top = 60.0
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 4 )
+draw_center = false
+patch_margin_left = 20
+patch_margin_top = 10
+patch_margin_right = 20
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="GameMenu"]
+margin_left = 67.8846
+margin_top = 81.6329
+margin_right = 187.885
+margin_bottom = 95.6329
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "Global Trends"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="GameMenu"]
+margin_left = 265.152
+margin_top = 593.518
+margin_right = 305.152
+margin_bottom = 613.518
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
+text = "Quit"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EconomyAxisLabel" type="Label" parent="GameMenu"]
+modulate = Color( 0.0823529, 1, 0, 1 )
+margin_left = 36.5651
+margin_top = 275.956
+margin_right = 114.565
+margin_bottom = 289.956
+rect_rotation = -90.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "Economy ($)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VirusAxisLabel" type="Label" parent="GameMenu"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 39.8892
+margin_top = 424.118
+margin_right = 91.8892
+margin_bottom = 438.118
+rect_rotation = -90.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "Virus (*)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DayAxisLabel" type="Label" parent="GameMenu"]
+margin_left = 76.4345
+margin_top = 454.033
+margin_right = 196.434
+margin_bottom = 468.033
+rect_scale = Vector2( 2, 2 )
+text = "0         Day         90"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EconomyPlot" type="Control" parent="GameMenu"]
+margin_left = 85.0
+margin_top = 125.0
+margin_right = 305.0
+margin_bottom = 275.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="GameMenu/EconomyPlot"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 225.0
+margin_bottom = 155.0
+texture = SubResource( 6 )
+draw_center = false
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line" type="Line2D" parent="GameMenu/EconomyPlot"]
+width = 5.0
+default_color = Color( 0, 1, 0, 1 )
+joint_mode = 2
+
+[node name="VirusPlot" type="Control" parent="GameMenu"]
+margin_left = 85.0
+margin_top = 295.0
+margin_right = 305.0
+margin_bottom = 445.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="GameMenu/VirusPlot"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 225.0
+margin_bottom = 155.0
+texture = SubResource( 6 )
+draw_center = false
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line" type="Line2D" parent="GameMenu/VirusPlot"]
+width = 5.0
+default_color = Color( 1, 0, 0, 1 )
+joint_mode = 2
+
+[node name="RankLabel" type="Label" parent="GameMenu"]
+margin_left = 82.1052
+margin_top = 498.947
+margin_right = 155.105
+margin_bottom = 526.947
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0, 0.878431, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.0313726, 0, 0.992157, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 1
+text = "Game Over
+Day: 30
+Rank: SSS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="MainMenu"]
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="MainMenu"]
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 4 )
+draw_center = false
+patch_margin_left = 20
+patch_margin_top = 10
+patch_margin_right = 20
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="MainMenu"]
+material = SubResource( 8 )
+margin_left = 38.0
+margin_top = 22.0
+margin_right = 95.0
+margin_bottom = 36.0
+rect_scale = Vector2( 5, 20 )
+size_flags_vertical = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "SPREAD"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="MainMenu"]
+modulate = Color( 0.0627451, 1, 0, 1 )
+material = SubResource( 11 )
+margin_left = 60.2394
+margin_top = 390.35
+margin_right = 143.239
+margin_bottom = 410.35
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color_hover = Color( 0, 1, 0, 1 )
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HowToPlayButton" type="Button" parent="MainMenu"]
+material = SubResource( 11 )
+margin_left = 98.2994
+margin_top = 508.213
+margin_right = 187.299
+margin_bottom = 528.213
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_hover = Color( 0, 1, 0, 1 )
+text = "How To Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TaglineLabel" type="Label" parent="MainMenu"]
+material = SubResource( 10 )
+margin_left = 24.7797
+margin_top = 298.947
+margin_right = 183.78
+margin_bottom = 312.947
+rect_rotation = -7.7
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/line_spacing = 0
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+text = "Keep the Economy Alive!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HowToPlay" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="HowToPlay"]
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="NinePatchRect" parent="HowToPlay"]
+margin_right = 360.0
+margin_bottom = 640.0
+texture = SubResource( 4 )
+draw_center = false
+patch_margin_left = 20
+patch_margin_top = 10
+patch_margin_right = 20
+patch_margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HowToPlay"]
+margin_left = 25.0
+margin_top = 16.0
+margin_right = 345.0
+margin_bottom = 630.0
+text = "Ludum Dare \"The Compo\"
+April 2020 Submission
+Game by SapporoVHS
+
+Pandemic Simulation Game:
+
+	Survive 30 days of the pandemic.
+
+	Roads connect cities to industries:
+		No oil = Bad Economy
+		No medical = cities cannot test.
+		No telecoms = no city info
+		
+		
+		
+
+	Close roads to slow the virus spread from
+		other cities.
+	Lock-down cities to slow the virus
+		but also slow the economy.
+
+
+
+
+	Start testing in cities to slow the virus,
+		and boost the medical industry.
+		*Virus is slowed more with longer testing.
+
+
+
+
+Reach Day 30 with Economy > 50 and Virus < 50:
+	3 Cities Remaining = SSS
+	2 Cities Remaining = SS
+	1 City Remaining = S
+Otherwise, just reach Day 30:
+	3 Cities Remaining = A
+	2 Cities Remaining = B
+	1 City Remaining = C"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MedicalIcon" type="TextureRect" parent="HowToPlay"]
+margin_left = 150.0
+margin_top = 200.0
+margin_right = 200.0
+margin_bottom = 250.0
+texture = ExtResource( 6 )
+
+[node name="OilIcon" type="TextureRect" parent="HowToPlay"]
+margin_left = 80.0
+margin_top = 200.0
+margin_right = 130.0
+margin_bottom = 250.0
+texture = ExtResource( 8 )
+
+[node name="TelecomIcon" type="TextureRect" parent="HowToPlay"]
+margin_left = 220.0
+margin_top = 200.0
+margin_right = 270.0
+margin_bottom = 250.0
+texture = ExtResource( 7 )
+
+[node name="QuarantineIcon" type="TextureRect" parent="HowToPlay"]
+margin_left = 150.0
+margin_top = 320.0
+margin_right = 200.0
+margin_bottom = 370.0
+texture = ExtResource( 9 )
+
+[node name="TestingIcon" type="TextureRect" parent="HowToPlay"]
+margin_left = 150.0
+margin_top = 425.0
+margin_right = 200.0
+margin_bottom = 475.0
+texture = ExtResource( 10 )
+[connection signal="pressed" from="PullDown/MenuButton" to="." method="_on_MenuButton_pressed"]
+[connection signal="gui_input" from="SingleCityStatsLabel" to="." method="_on_SingleCityStatsLabel_gui_input"]
+[connection signal="pressed" from="GameMenu/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="MainMenu/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="MainMenu/HowToPlayButton" to="." method="_on_HowToPlayButton_pressed"]
+[connection signal="gui_input" from="HowToPlay/RichTextLabel" to="." method="_on_RichTextLabel_gui_input"]

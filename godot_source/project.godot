@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Spread"
+run/main_scene="res://Game.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://globals.gd"
+AudioNode="*res://global/AudioNode.tscn"
+
+[display]
+
+window/size/width=360
+window/size/height=640
+window/size/fullscreen=true
+window/handheld/orientation="portrait"
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

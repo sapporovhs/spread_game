@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://global/AudioNode.gd" type="Script" id=1]
+
+[node name="AudioNode" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+volume_db = -12.0
+
+[node name="SFX2" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+[connection signal="finished" from="Music" to="." method="_on_Music_finished"]

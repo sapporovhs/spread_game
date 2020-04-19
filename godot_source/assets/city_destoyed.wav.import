@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/city_destoyed.wav-32ed85865df0d0e4f46c7fe0a51c1e3e.sample"
+
+[deps]
+
+source_file="res://assets/city_destoyed.wav"
+dest_files=[ "res://.import/city_destoyed.wav-32ed85865df0d0e4f46c7fe0a51c1e3e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

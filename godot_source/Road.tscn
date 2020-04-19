@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Road.gd" type="Script" id=1]
+
+[node name="Road" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Line" type="Line2D" parent="."]
+points = PoolVector2Array( 0.201332, 0.702736, 67.9427, 59.3925 )
+default_color = Color( 0.392157, 0.0627451, 0, 1 )
+joint_mode = 2
+
+[node name="ClickRect" type="ColorRect" parent="."]
+margin_right = 20.0
+margin_bottom = 64.0
+rect_rotation = -69.7
+rect_pivot_offset = Vector2( 10, 0 )
+color = Color( 0.972549, 0.968627, 0.980392, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="ClickRect" to="." method="_on_ClickRect_gui_input"]
