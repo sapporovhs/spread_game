@@ -45,6 +45,7 @@ func reset():
 	destroyed = false
 	$TestingIcon.hide()
 	$QuarantinedIcon.hide()
+	update_status_UI()
 	show()
 
 func _process(delta):
@@ -92,7 +93,7 @@ func update_states(connection_subgraph):
 	for city in Game.get_node("Cities").get_children():
 		var resource = city.industry
 		var has_resource = connection_subgraph[city.get_index()]
-		if resource == Globals.INDUSTRIES.MEDICAL:
+		if resource == Globals.INDUSTRIES.MEDICAL or industry==Globals.INDUSTRIES.MEDICAL:
 			has_medical = has_resource
 		elif resource == Globals.INDUSTRIES.TELECOM:
 			has_telecom = has_resource
@@ -122,15 +123,21 @@ func _on_Sprite_gui_input(event):
 			quarantined = true
 			AudioNode.play_sfx(0)
 			$QuarantinedIcon.show()
-		elif quarantined and has_medical:
+		elif quarantined and (has_medical or industry==Globals.INDUSTRIES.MEDICAL):
 			quarantined = false
 			$QuarantinedIcon.hide()
 			testing = true
 			AudioNode.play_sfx(1)
 			$TestingIcon.show()
-		else:
+		elif testing:
 			quarantined = false
 			testing = false
 			$QuarantinedIcon.hide()
 			$TestingIcon.hide()
+		else:
+			quarantined = false
+			$QuarantinedIcon.hide()
+			testing = false
+			$TestingIcon.hide()
+			
 		Game.show_city_stats(get_index())
